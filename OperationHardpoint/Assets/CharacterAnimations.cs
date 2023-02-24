@@ -21,6 +21,14 @@ public class CharacterAnimations : MonoBehaviour
     private SpriteRenderer bodySprite;
     private SpriteRenderer rightArmSprite;
     private SpriteRenderer leftArmSprite;
+
+    private Animator leftLegAnimator;
+    private Animator rightLegAnimator;
+    private Animator headAnimator;
+    private Animator bodyAnimator;
+    private Animator rightArmAnimator;
+    private Animator leftArmAnimator;
+
     void Start()
     {
         CORE = this.gameObject;
@@ -38,7 +46,14 @@ public class CharacterAnimations : MonoBehaviour
         rightArmSprite = ARMR.GetComponent<SpriteRenderer>();
         leftArmSprite = ARML.GetComponent<SpriteRenderer>();
 
-        RB = GetComponent<Rigidbody2D>();
+        leftLegAnimator = LEGL.GetComponent<Animator>();
+        rightLegAnimator = LEGR.GetComponent<Animator>();
+        headAnimator = HEAD.GetComponent<Animator>();
+        bodyAnimator = BODY.GetComponent<Animator>();
+        rightArmAnimator = ARMR.GetComponent<Animator>();
+        leftArmAnimator = ARML.GetComponent<Animator>();
+
+    RB = GetComponent<Rigidbody2D>();
     }
 
     // Update is called once per frame
@@ -47,11 +62,26 @@ public class CharacterAnimations : MonoBehaviour
         if(RB.velocity.x > 0f)
         {
             FlipSprite(false);
+            Running(true);
         }
         else if(RB.velocity.x < 0f)
         {
             FlipSprite(true);
+            Running(true);
         }
+        else
+        {
+            Running(false);
+        }
+
+    }
+
+    private void Running(bool runState)
+    {
+        leftLegAnimator.SetBool("Running", runState);
+        rightLegAnimator.SetBool("Running", runState);
+        bodyAnimator.SetBool("Running", runState);
+        headAnimator.SetBool("Running", runState);
     }
 
     private void FlipSprite(bool flipState)
