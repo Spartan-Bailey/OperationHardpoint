@@ -38,6 +38,9 @@ TagManager:
   - 
   - 
   m_SortingLayers:
+  - name: BackWall
+    uniqueID: 589922765
+    locked: 0
   - name: Default
     uniqueID: 0
     locked: 0
