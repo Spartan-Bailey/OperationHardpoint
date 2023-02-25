@@ -38,6 +38,12 @@ TagManager:
   - 
   - 
   m_SortingLayers:
+  - name: Background
+    uniqueID: 2546689865
+    locked: 0
+  - name: 'Parallax '
+    uniqueID: 4201696355
+    locked: 0
   - name: BackWall
     uniqueID: 589922765
     locked: 0

@@ -80,6 +80,8 @@ public class CharacterAnimations : MonoBehaviour
     {
         leftLegAnimator.SetBool("Running", runState);
         rightLegAnimator.SetBool("Running", runState);
+        leftArmAnimator.SetBool("Running", runState);
+        rightArmAnimator.SetBool("Running", runState);
         bodyAnimator.SetBool("Running", runState);
         headAnimator.SetBool("Running", runState);
     }
