@@ -29,8 +29,13 @@ public class CharacterAnimations : MonoBehaviour
     private Animator rightArmAnimator;
     private Animator leftArmAnimator;
 
+    private Collider2D Collider;
+    [SerializeField] private LayerMask Ground;
     void Start()
     {
+
+        Collider = transform.GetComponent<CapsuleCollider2D>();
+
         CORE = this.gameObject;
         LEGL = CORE.transform.Find("Legs").Find("Left Leg (Rear)").gameObject;
         LEGR = CORE.transform.Find("Legs").Find("Right Leg (Front)").gameObject;
@@ -59,6 +64,21 @@ public class CharacterAnimations : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if(RB.velocity.y > 0f && !IsGrounded())
+        {
+            Jumping(true);
+        }
+        else if (RB.velocity.y < 0f && !IsGrounded())
+        {
+            Jumping(false);
+            Falling(true);
+        }
+        else
+        {
+            Falling(false);
+            Jumping(false);
+        }
+        
         if(RB.velocity.x > 0f)
         {
             FlipSprite(false);
@@ -84,6 +104,28 @@ public class CharacterAnimations : MonoBehaviour
         rightArmAnimator.SetBool("Running", runState);
         bodyAnimator.SetBool("Running", runState);
         headAnimator.SetBool("Running", runState);
+    }
+    private void Jumping(bool jumpState)
+    {
+        rightLegAnimator.SetBool("Jumping", jumpState);
+        leftLegAnimator.SetBool("Jumping", jumpState);
+        bodyAnimator.SetBool("Jumping", jumpState);
+        rightArmAnimator.SetBool("Jumping", jumpState);
+        leftArmAnimator.SetBool("Jumping", jumpState);
+        headAnimator.SetBool("Jumping", jumpState);
+    }
+    private void Falling(bool fallState)
+    {
+        rightLegAnimator.SetBool("Falling", fallState); 
+        leftLegAnimator.SetBool("Falling", fallState);
+        bodyAnimator.SetBool("Falling", fallState);
+        rightArmAnimator.SetBool("Falling", fallState);
+        leftArmAnimator.SetBool("Falling", fallState);
+        headAnimator.SetBool("Falling", fallState);
+    }
+    public bool IsGrounded()
+    {
+        return (Physics2D.BoxCast(Collider.bounds.center, Collider.bounds.size, 0f, Vector2.down, 0.1f, Ground));
     }
 
     private void FlipSprite(bool flipState)
