@@ -66,7 +66,7 @@ public class CharacterActions : MonoBehaviour
 
     public bool IsGrounded()
     {
-        return (Physics2D.BoxCast(Collider.bounds.center, Collider.bounds.size, 0f, Vector2.down, .1f, Ground));
+        return (Physics2D.BoxCast(Collider.bounds.center, new Vector2(0.15f, Collider.bounds.size.y), 0f, Vector2.down, .1f, Ground));
     }
 
     private bool IsOnSlope()
